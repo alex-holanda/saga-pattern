@@ -32,10 +32,10 @@ public class SalePaymentUseCase implements SalePaymentInputPort {
 
             updateUserOutputPort.update(user);
             savePaymentOutputPort.save(buildPayment(sale));
-            sendToKafkaOutputPort.send(sale, SaleEvent.VALIDATED_PAYMENT);
+            sendToKafkaOutputPort.send(sale, SaleEvent.PAYMENT_EXECUTED);
         } catch (Exception e) {
             log.error("Houve um erro = {}", e.getMessage());
-            sendToKafkaOutputPort.send(sale, SaleEvent.FAILED_PAYMENT);
+            sendToKafkaOutputPort.send(sale, SaleEvent.PAYMENT_FAILED);
         }
     }
 

@@ -20,6 +20,6 @@ public class SendToKafkaAdapter implements SendToKafkaOutputPort {
         saleMessage.setSale(sale);
         saleMessage.setSaleEvent(saleEvent);
 
-        kafkaTemplate.send("tp-saga-sale", saleMessage);
+        kafkaTemplate.send("tp-saga-orchestrator", saleMessage);
     }
 }

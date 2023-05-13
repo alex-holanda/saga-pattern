@@ -15,9 +15,9 @@ public class ReceiveSaleToCreditInventoryConsumer {
 
     private final CreditInventoryInputPort creditInventoryInputPort;
 
-    @KafkaListener(topics = "tp-saga-sale", groupId = "inventory-credit")
+    @KafkaListener(topics = "tp-saga-inventory", groupId = "inventory-credit")
     public void receve(SaleMessage saleMessage) {
-        if (SaleEvent.FAILED_PAYMENT.equals(saleMessage.getSaleEvent())) {
+        if (SaleEvent.EXECUTE_ROLLBACK.equals(saleMessage.getSaleEvent())) {
             log.info("Inicio da devolução da mercadoria");
             creditInventoryInputPort.credit(saleMessage.getSale());
             log.info("Fim da devolução da mercadoria");
